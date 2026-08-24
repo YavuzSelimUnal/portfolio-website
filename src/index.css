@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Theme tokens: "draft" = vellum paper, "print" = cyanotype blueprint ---- */
+[data-theme='draft'] {
+  --bg: #EDEEE6;
+  --bg-dim: #E2E4D9;
+  --ink: #1C2733;
+  --ink-faint: #4A5560;
+  --accent: #2F5D8A;
+  --accent-deep: #1F3F5E;
+  --amber: #D98E2B;
+  --hairline: #B8BFC4;
+  --grid-line: rgba(28, 39, 51, 0.06);
+}
+
+[data-theme='print'] {
+  --bg: #123159;
+  --bg-dim: #0D2748;
+  --ink: #EAF1F8;
+  --ink-faint: #9FB8D4;
+  --accent: #F2C879;
+  --accent-deep: #FFFFFF;
+  --amber: #F2C879;
+  --hairline: rgba(255, 255, 255, 0.25);
+  --grid-line: rgba(255, 255, 255, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+[data-theme] {
+  background-color: var(--bg);
+  color: var(--ink);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  min-height: 100vh;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Leader / dimension line utility */
+.leader-line {
+  position: relative;
+}
+.leader-line::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: -28px;
+  width: 20px;
+  height: 1px;
+  background: var(--accent);
+  transform-origin: left;
+  transition: transform 0.5s ease 0.1s;
+}
+.leader-line::after {
+  content: '';
+  position: absolute;
+  top: 7px;
+  left: -32px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.reveal .leader-line::before {
+  transform: scaleX(0);
+}
+.reveal.is-visible .leader-line::before {
+  transform: scaleX(1);
+}
+
+/* Crop mark corners for sheet frames */
+.sheet-frame {
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.sheet-frame:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -14px rgba(0, 0, 0, 0.25);
+}
+.sheet-frame::before,
+.sheet-frame::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--ink);
+  opacity: 0.35;
+}
+.sheet-frame::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+.sheet-frame::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Generic scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Drafting-pen divider line that draws itself in */
+.draw-line {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.is-visible .draw-line {
+  transform: scaleX(1);
+}
+
+/* Focus visibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.caret::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 0.8em;
+  background: var(--accent);
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: -0.1em;
+}
