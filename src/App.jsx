@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 
-// ---- Edit these with your real details/links ----
 const CONFIG = {
   name: 'Yavuz Selim Ünal',
   email: 'yavuz6658@gmail.com',
@@ -84,6 +83,33 @@ const PROJECTS = [
     github: '',
     demo: '',
     demoType: 'log',
+  },
+  {
+    id: 'project-03',
+    track: 'cyber',
+    sheet: '01',
+    of: '01',
+    title: 'Sentry — Web Security Scanner',
+    subtitle: 'Full-stack vulnerability scanner with live-streaming results',
+    description:
+      "A web security scanner that checks a target site for common real-world misconfigurations — missing security headers, TLS issues, exposed sensitive paths, insecure cookies, open database ports, outdated JS libraries with known CVEs, and reflected XSS — and streams results live to the browser as each check completes, presented as a detective 'case file' UI.",
+    callouts: [
+      { layer: 'backend', text: 'Seven independent scanner modules (headers, TLS/cert, exposed paths, cookies, open ports, CVE lookup, reflected XSS) sharing one Finding data shape' },
+      { layer: 'backend', text: 'Server-enforced target allowlist + explicit consent gate for custom URLs — authorization checked on the backend, not just hidden in the UI, so it can\'t be bypassed by calling the API directly' },
+      { layer: 'data', text: 'Client-side library fingerprinting cross-referenced against the OSV.dev public vulnerability database for known CVEs' },
+      { layer: 'frontend', text: 'Live-streaming results over a WebSocket rather than a single request/response — each check\'s findings render the moment it completes' },
+      { layer: 'deploy', text: 'Containerized with Docker; backend deployed on Fly.io, frontend on GitHub Pages' },
+    ],
+    bom: [
+      { part: 'Backend', spec: 'FastAPI, Python, WebSockets', layer: 'backend' },
+      { part: 'Vulnerability DB', spec: 'OSV.dev API', layer: 'data' },
+      { part: 'Frontend', spec: 'React + Vite (custom CSS, no UI framework)', layer: 'frontend' },
+      { part: 'Containerization', spec: 'Docker', layer: 'deploy' },
+      { part: 'Hosting', spec: 'Fly.io (backend), GitHub Pages (frontend)', layer: 'deploy' },
+    ],
+    github: 'https://github.com/YavuzSelimUnal/security-scanner',
+    demo: 'https://yavuzselimunal.github.io/security-scanner/',
+    demoType: '',
   },
 ]
 
