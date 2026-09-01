@@ -88,7 +88,7 @@ const PROJECTS = [
     id: 'project-03',
     track: 'cyber',
     sheet: '01',
-    of: '01',
+    of: '02',
     title: 'Sentry — Web Security Scanner',
     subtitle: 'Full-stack vulnerability scanner with live-streaming results',
     description:
@@ -109,6 +109,33 @@ const PROJECTS = [
     ],
     github: 'https://github.com/YavuzSelimUnal/security-scanner',
     demo: 'https://yavuzselimunal.github.io/security-scanner/',
+    demoType: '',
+  },
+
+  {
+    id: 'project-04',
+    track: 'cyber',
+    sheet: '02',
+    of: '02',
+    title: 'ScoutRecon — Network Recon & Credential Auditing Toolkit',
+    subtitle: 'Attacker-eye-view recon: port scanning, CVE lookup, subdomain enum, hash auditing',
+    description:
+      "A companion to Sentry from the other side of the fence: rather than checking your own app for weaknesses, ScoutRecon does the reconnaissance an attacker's first hour would — scanning ports, cross-referencing service versions against known CVEs, enumerating subdomains, and auditing password/hash strength.",
+    callouts: [
+      { layer: 'backend', text: 'Async TCP connect scanner with banner grabbing, feeding identified service versions directly into a CVE cross-reference against the live NVD API' },
+      { layer: 'backend', text: 'Server-enforced scope gate: scanning and enumeration default to private/local targets only, requiring explicit confirmed authorization for any public target — checked server-side, not just a UI checkbox' },
+      { layer: 'backend', text: 'Password/hash auditing (dictionary + bounded brute-force against MD5/SHA1/SHA256/bcrypt) deliberately capped in scope as a technical and ethical design decision, rather than built for maximum cracking power' },
+      { layer: 'data', text: 'DNS-based subdomain enumeration against a curated wordlist, run through the same authorization policy as active scanning' },
+      { layer: 'frontend', text: 'Custom radar-scope visualization: discovered hosts render as live pinging contacts, with a linked "contact log" showing service, CVE, and severity detail' },
+    ],
+    bom: [
+      { part: 'Backend', spec: 'FastAPI, Python, asyncio', layer: 'backend' },
+      { part: 'Vulnerability DB', spec: 'NVD (National Vulnerability Database) public API', layer: 'data' },
+      { part: 'Hashing', spec: 'hashlib (MD5/SHA1/SHA256), bcrypt', layer: 'backend' },
+      { part: 'Frontend', spec: 'React + Vite (custom CSS, no UI framework)', layer: 'frontend' },
+    ],
+    github: 'https://github.com/YavuzSelimUnal/scout-recon',
+    demo: '',
     demoType: '',
   },
 ]
